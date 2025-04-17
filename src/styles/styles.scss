@@ -1,0 +1,36 @@
+@use "@ingka/variables/style.scss" as *;
+
+.dashboard {
+  &__container {
+    padding: $space-400;
+  }
+
+  &__filter-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: $space-200;
+    gap: $space-100;
+  }
+}
+
+.title {
+  margin-bottom: $space-200;
+}
+
+.filter {
+  position: relative;
+  text-transform: capitalize;
+
+  &__dropdown {
+    top: $space-300;
+    position: absolute;
+    z-index: 5000;
+    width: 300px;
+    max-height: 500px;
+    overflow-y: scroll;
+    background-color: $colour-neutral-1;
+    padding: $space-200;
+    box-shadow: 1px 3px 8px 0px;
+    border-radius: 0.75rem;
+  }
+}
