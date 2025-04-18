@@ -22,15 +22,12 @@
   text-transform: capitalize;
 
   &__dropdown {
-    top: $space-300;
     position: absolute;
     z-index: 5000;
-    width: 300px;
-    max-height: 500px;
-    overflow-y: scroll;
     background-color: $colour-neutral-1;
-    padding: $space-200;
+    min-width: 300px;
     box-shadow: 1px 3px 8px 0px;
     border-radius: 0.75rem;
+    padding: $space-200;
   }
 }

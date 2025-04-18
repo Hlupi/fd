@@ -31,7 +31,6 @@ describe("Filter", () => {
 
     await userEvent.click(button);
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
-    screen.debug();
   });
 
   it("should toggle update search params", async () => {
