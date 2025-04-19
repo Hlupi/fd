@@ -39,4 +39,15 @@ beforeAll(async () => {
       useSearchParams,
     };
   });
+  vi.mock("next/router", async (importOriginal) => {
+    const actual = await importOriginal<typeof import("next/router")>();
+    const { useRouter } =
+      await vi.importActual<typeof import("next-router-mock")>(
+        "next-router-mock"
+      );
+    return {
+      ...actual,
+      useRouter: vi.fn().mockImplementation(useRouter),
+    };
+  });
 });

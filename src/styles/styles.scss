@@ -31,3 +31,17 @@
     padding: $space-200;
   }
 }
+
+.date-range {
+  min-width: 234px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $colour-interactive-secondary-bg-default;
+  border-radius: $radius-cap;
+  border: $thickness-thick solid transparent;
+
+  &.selected {
+    border-color: $colour-interactive-subtle-border-selected;
+  }
+}
