@@ -5,10 +5,11 @@ export function DateRangeFilter() {
   const searchParams = useSearchParams();
   const fromDate = searchParams.get("from");
   const toDate = searchParams.get("to");
-  const selectedStyles = fromDate || toDate ? " selected" : "";
+  const className = "date-range";
+  const selectedStyles = fromDate || toDate ? ` ${className}--selected` : "";
 
   return (
-    <div className={`date-range${selectedStyles}`}>
+    <div className={`${className} ${selectedStyles}`}>
       <DateFilter name="from" />
       <DateFilter name="to" limit={fromDate ?? undefined} />
     </div>

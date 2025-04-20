@@ -4,6 +4,7 @@ import { Product, Region, useForecast } from "@/hooks/use-get-forecast";
 import { Filter } from "./filter";
 import { ForecastTable } from "./forecast-table";
 import { DateRangeFilter } from "./date-range-filter";
+import { DemandOverTimeChart } from "./charts";
 
 export function Dashboard() {
   const { data, isLoading, error, refetch } = useForecast();
@@ -27,7 +28,10 @@ export function Dashboard() {
       ) : !data ? (
         <div>No forecast data available.</div>
       ) : (
-        <ForecastTable data={data} />
+        <div className="dashboard__content">
+          <ForecastTable data={data} className="dashboard__table lol" />
+          <DemandOverTimeChart data={data} className="dashboard__charts" />
+        </div>
       )}
     </div>
   );

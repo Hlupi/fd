@@ -56,7 +56,13 @@ const columns = [
   }),
 ];
 
-export function ForecastTable({ data }: { data: ForecastData[] }) {
+export function ForecastTable({
+  data,
+  className,
+}: {
+  data: ForecastData[];
+  className?: string;
+}) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -79,8 +85,10 @@ export function ForecastTable({ data }: { data: ForecastData[] }) {
     getFilteredRowModel: getFilteredRowModel(),
   });
 
+  const sortingIconClassName = "table__header-button__sorting-icon";
+
   return (
-    <div>
+    <div className={className}>
       <Search
         id="search"
         placeholder="Search..."
@@ -89,60 +97,55 @@ export function ForecastTable({ data }: { data: ForecastData[] }) {
         onClear={(e) => setGlobalFilter((e.target as HTMLInputElement).value)}
       />
 
-      <div>
-        <Table fullWidth>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th key={header.id}>
-                    <Button
-                      type="plain"
-                      size="small"
-                      aria-label={`Sort by ${String(header.column.columnDef.header)} ${
-                        header.column.getIsSorted() === "asc"
-                          ? "ascending"
-                          : "descending"
-                      }`}
-                      onClick={header.column.getToggleSortingHandler()}
-                      className="header-button"
-                    >
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                      <SSRIcon
-                        paths={arrowDownIcon}
-                        className={`sorting-icon ${header.column.getIsSorted() ? "sorting-icon--active" : ""} ${header.column.getIsSorted() === "desc" ? "sorting-icon--rotated" : ""}`}
-                      />
-                    </Button>
-                  </th>
+      <Table fullWidth>
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th key={header.id}>
+                  <Button
+                    type="plain"
+                    size="small"
+                    aria-label={`Sort by ${String(header.column.columnDef.header)} ${
+                      header.column.getIsSorted() === "asc"
+                        ? "ascending"
+                        : "descending"
+                    }`}
+                    onClick={header.column.getToggleSortingHandler()}
+                    className="table__header-button"
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                    <SSRIcon
+                      paths={arrowDownIcon}
+                      className={`${sortingIconClassName} ${header.column.getIsSorted() ? `${sortingIconClassName}--active` : ""} ${header.column.getIsSorted() === "desc" ? `${sortingIconClassName}--rotated` : ""}`}
+                    />
+                  </Button>
+                </th>
+              ))}
+            </tr>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows.length ? (
+            table.getRowModel().rows.map((row) => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
                 ))}
               </tr>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows.length ? (
-              table.getRowModel().rows.map((row) => (
-                <tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={columns.length}>No results found</td>
-              </tr>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={columns.length}>No results found</td>
+            </tr>
+          )}
+        </TableBody>
+      </Table>
 
       <Pagination
         totalPages={table.getPageCount()}

@@ -11,6 +11,20 @@
     margin-bottom: $space-200;
     gap: $space-100;
   }
+
+  &__content {
+    padding-top: $space-100;
+    display: flex;
+    gap: $space-150;
+  }
+
+  &__table {
+    flex-basis: 40%;
+  }
+
+  &__charts {
+    flex-basis: 60%;
+  }
 }
 
 .title {
@@ -41,15 +55,29 @@
   border-radius: $radius-cap;
   border: $thickness-thick solid transparent;
 
-  &.selected {
+  &--selected {
     border-color: $colour-interactive-subtle-border-selected;
   }
 }
 
-.header-button {
-  &:hover {
-    & svg {
-      color: $colour-interactive-secondary-bg-hover;
+.table {
+  &__header-button {
+    &:hover {
+      & svg {
+        color: $colour-interactive-secondary-bg-hover;
+      }
+    }
+
+    &__sorting-icon {
+      color: transparent;
+
+      &--active {
+        color: currentColor;
+      }
+
+      &--rotated {
+        transform: rotate(180deg);
+      }
     }
   }
 }
