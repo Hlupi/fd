@@ -45,3 +45,50 @@
     border-color: $colour-interactive-subtle-border-selected;
   }
 }
+
+.header-button {
+  &:hover {
+    & svg {
+      color: $colour-interactive-secondary-bg-hover;
+    }
+  }
+}
+
+.sorting-icon {
+  color: transparent;
+
+  &--active {
+    color: currentColor;
+  }
+
+  &--rotated {
+    transform: rotate(180deg);
+  }
+}
+
+.pagination {
+  &__controls {
+    margin-top: $space-200;
+    display: flex;
+    justify-content: center;
+    gap: $space-100;
+  }
+
+  &__page-numbers {
+    display: flex;
+    gap: $space-50;
+
+    & > button:hover {
+      color: $colour-interactive-secondary-bg-hover;
+    }
+  }
+
+  &__info {
+    margin-top: $space-200;
+    text-align: center;
+  }
+}
+
+.font-normal {
+  font-weight: normal;
+}

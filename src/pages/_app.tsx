@@ -8,6 +8,8 @@ import "@ingka/pill/style.scss";
 import "@ingka/table/style.scss";
 import "@ingka/text/style.scss";
 import "react-day-picker/style.css";
+import "@ingka/svg-icon/style.scss";
+import "@ingka/search/style.scss";
 
 import "@/styles/styles.scss";
 

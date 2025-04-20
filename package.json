@@ -18,6 +18,7 @@
     "@ingka/grid": "7.0.6",
     "@ingka/list-view": "0.9.15",
     "@ingka/pill": "10.0.2",
+    "@ingka/search": "9.2.2",
     "@ingka/ssr-icon": "10.13.0",
     "@ingka/table": "3.0.7",
     "@ingka/text": "5.0.2",

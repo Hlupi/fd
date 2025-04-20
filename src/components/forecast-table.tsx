@@ -12,6 +12,11 @@ import {
   getFilteredRowModel,
 } from "@tanstack/react-table";
 import Table, { TableBody, TableHeader } from "@ingka/table";
+import { Pagination } from "./pagination";
+import Search from "@ingka/search";
+import Button from "@ingka/button";
+import arrowDownIcon from "@ingka/ssr-icon/paths/arrow-down";
+import SSRIcon from "@ingka/ssr-icon";
 
 type ForecastData = {
   date: string;
@@ -76,20 +81,41 @@ export function ForecastTable({ data }: { data: ForecastData[] }) {
 
   return (
     <div>
+      <Search
+        id="search"
+        placeholder="Search..."
+        size="small"
+        onChange={(e) => setGlobalFilter(e.target.value)}
+        onClear={(e) => setGlobalFilter((e.target as HTMLInputElement).value)}
+      />
+
       <div>
-        <Table>
+        <Table fullWidth>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th
-                    key={header.id}
-                    onClick={header.column.getToggleSortingHandler()}
-                  >
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
+                  <th key={header.id}>
+                    <Button
+                      type="plain"
+                      size="small"
+                      aria-label={`Sort by ${String(header.column.columnDef.header)} ${
+                        header.column.getIsSorted() === "asc"
+                          ? "ascending"
+                          : "descending"
+                      }`}
+                      onClick={header.column.getToggleSortingHandler()}
+                      className="header-button"
+                    >
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                      <SSRIcon
+                        paths={arrowDownIcon}
+                        className={`sorting-icon ${header.column.getIsSorted() ? "sorting-icon--active" : ""} ${header.column.getIsSorted() === "desc" ? "sorting-icon--rotated" : ""}`}
+                      />
+                    </Button>
                   </th>
                 ))}
               </tr>
@@ -117,6 +143,14 @@ export function ForecastTable({ data }: { data: ForecastData[] }) {
           </TableBody>
         </Table>
       </div>
+
+      <Pagination
+        totalPages={table.getPageCount()}
+        currentPage={table.getState().pagination.pageIndex}
+        onClick={table.setPageIndex}
+        hasPrevPage={table.getCanPreviousPage()}
+        hasNextPage={table.getCanNextPage()}
+      />
     </div>
   );
 }
