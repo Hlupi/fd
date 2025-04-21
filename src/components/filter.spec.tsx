@@ -14,13 +14,13 @@ describe("Filter", () => {
 
   it("should display a filter with correct name ", () => {
     renderFilter();
-    const button = screen.getByRole("button", { name: "Filter 1" });
+    const button = screen.getByRole("button", { name: /Filter by Filter 1/i });
     expect(button).toBeInTheDocument();
   });
 
   it("should toggle a filter to show & hide options", async () => {
     renderFilter();
-    const button = screen.getByRole("button", { name: "Filter 1" });
+    const button = screen.getByRole("button", { name: /Filter by Filter 1/i });
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
 
     await userEvent.click(button);
@@ -36,9 +36,9 @@ describe("Filter", () => {
   it("should toggle update search params", async () => {
     mockRouter.push("/");
     renderFilter();
-    const button = screen.getByRole("button", { name: "Filter 1" });
+    const button = screen.getByRole("button", { name: /Filter by Filter 1/i });
     await userEvent.click(button);
-    const option1 = screen.getByRole("checkbox", { name: "option 1" });
+    const option1 = screen.getByRole("checkbox", { name: /option 1/i });
     await userEvent.click(option1);
     expect(mockRouter).toMatchObject({
       asPath: "/?Filter+1=option+1",
@@ -50,18 +50,18 @@ describe("Filter", () => {
   it("should show selected filter if it's in the params", async () => {
     mockRouter.push("/?Filter+1=option+2");
     renderFilter();
-    const button = screen.getByRole("button", { name: "Filter 1" });
+    const button = screen.getByRole("button", { name: /Filter by Filter 1/i });
     await userEvent.click(button);
-    const option2 = screen.getByRole("checkbox", { name: "option 2" });
+    const option2 = screen.getByRole("checkbox", { name: /option 2/i });
     expect(option2).toBeChecked();
   });
 
   it("should remove a filter value when an active filter is clicked", async () => {
     mockRouter.push("/?Filter+1=option+2");
     renderFilter();
-    const button = screen.getByRole("button", { name: "Filter 1" });
+    const button = screen.getByRole("button", { name: /Filter by Filter 1/i });
     await userEvent.click(button);
-    const option2 = screen.getByRole("checkbox", { name: "option 2" });
+    const option2 = screen.getByRole("checkbox", { name: /option 2/i });
     await userEvent.click(option2);
     expect(option2).not.toBeChecked();
     expect(mockRouter).toMatchObject({

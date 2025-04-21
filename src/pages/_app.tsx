@@ -1,3 +1,4 @@
+import Head from "next/head";
 import "@ingka/button/style.scss";
 import "@ingka/base/style.scss";
 import "@ingka/focus/style.scss";
@@ -16,5 +17,12 @@ import "@/styles/styles.scss";
 import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Head>
+        <title>Demand forecast</title>
+      </Head>
+      <Component {...pageProps} />
+    </>
+  );
 }

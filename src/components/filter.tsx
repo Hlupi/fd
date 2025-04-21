@@ -16,6 +16,7 @@ export function Filter({ name, values }: { name: string; values: string[] }) {
         <Pill
           size="small"
           label={name}
+          aria-label={`Filter by ${name}`}
           trailingIcon={open ? chevronUp : chevronDown}
           aria-expanded={open}
           selected={open || !!getSelectedFilters(name).length}
@@ -23,7 +24,10 @@ export function Filter({ name, values }: { name: string; values: string[] }) {
           className="filter"
         />
       </PopoverTrigger>
-      <PopoverContent className="filter__dropdown">
+      <PopoverContent
+        className="filter__dropdown"
+        aria-label={`${name} filter options`}
+      >
         <ListView
           id={`${name}-filter-options`}
           size="small"

@@ -1,0 +1,14 @@
+[
+  {
+    "date": "2025-04-21",
+    "region": "EU",
+    "product": "Widget A",
+    "demand": 173.14
+  },
+  {
+    "date": "2025-04-22",
+    "region": "EU",
+    "product": "Widget A",
+    "demand": 76.37
+  }
+]

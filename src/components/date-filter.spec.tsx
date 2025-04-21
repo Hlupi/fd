@@ -50,7 +50,7 @@ describe("DateFilter", () => {
     expect(button).toBeInTheDocument();
     await userEvent.click(button);
 
-    const calendar = screen.getByRole("dialog", { name: "Date picker" });
+    const calendar = screen.getByRole("dialog", { name: /From date picker/i });
     const dayButton = within(calendar).getByRole("button", {
       name: `Today, ${formatDate(new Date())}`,
     });
@@ -106,7 +106,7 @@ describe("DateFilter", () => {
     mockRouter.push("/?from=2025-04-19");
     renderDateFilter();
 
-    const button = screen.getByRole("button", { name: "19 Apr" });
+    const button = screen.getByRole("button", { name: /19 Apr/i });
     expect(button).toBeInTheDocument();
   });
 

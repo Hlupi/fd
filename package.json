@@ -9,7 +9,9 @@
     "lint": "next lint",
     "test": "npx env-cmd -f .env.development vitest",
     "test:ui": "npx env-cmd -f .env.development vitest --ui",
-    "test:coverage": "npx env-cmd -f .env.development vitest run --coverage"
+    "test:coverage": "npx env-cmd -f .env.development vitest run --coverage",
+    "test:e2e": "cypress run",
+    "test:e2e:dev": "cypress open"
   },
   "dependencies": {
     "@ingka/base": "6.0.0",
@@ -38,6 +40,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@testing-library/cypress": "10.0.3",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
@@ -51,6 +54,8 @@
     "@vitejs/plugin-react": "4.4.0",
     "@vitest/coverage-v8": "3.1.1",
     "@vitest/ui": "3.1.1",
+    "cypress": "14.3.1",
+    "cypress-axe": "1.6.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.0",
     "eslint-config-prettier": "10.1.2",

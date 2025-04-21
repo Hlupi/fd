@@ -58,6 +58,8 @@ export function DemandOverTimeChart({
       type="line"
       height={400}
       className={className}
+      aria-label="Demand Over Time Chart"
+      role="region"
     />
   );
 }

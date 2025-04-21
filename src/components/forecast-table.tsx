@@ -95,6 +95,9 @@ export function ForecastTable({
         size="small"
         onChange={(e) => setGlobalFilter(e.target.value)}
         onClear={(e) => setGlobalFilter((e.target as HTMLInputElement).value)}
+        clearBtnText="Clear search"
+        submitBtnText="Search"
+        ariaLabel="Search through the forecast data"
       />
 
       <Table fullWidth>

@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import Pill from "@ingka/pill";
 import { useFilters } from "@/hooks/use-filters";
 import { useRouter } from "next/router";
+import { inCypress } from "@/utils/in-cypress";
 
 export const formatToString = (date: Date) => {
   return format(date, "yyyy-MM-dd");
@@ -61,12 +62,16 @@ export function DateFilter({ name, limit }: { name: string; limit?: string }) {
           className="filter"
         />
       </PopoverTrigger>
-      <PopoverContent className="filter__dropdown" aria-label="Date picker">
+      <PopoverContent
+        className="filter__dropdown"
+        aria-label={`${name} date picker`}
+      >
         <DayPicker
           mode="single"
           selected={selected}
           onSelect={handleSelect}
           disabled={limit ? { before: new Date(limit) } : undefined}
+          month={inCypress ? new Date(2025, 3) : undefined}
         />
       </PopoverContent>
     </Popover>

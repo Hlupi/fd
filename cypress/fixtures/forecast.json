@@ -1,0 +1,194 @@
+[
+  {
+    "date": "2025-04-21",
+    "region": "EU",
+    "product": "Widget A",
+    "demand": 13.37
+  },
+  {
+    "date": "2025-04-21",
+    "region": "EU",
+    "product": "Widget B",
+    "demand": 79.31
+  },
+  {
+    "date": "2025-04-21",
+    "region": "EU",
+    "product": "Widget C",
+    "demand": 117.83
+  },
+  {
+    "date": "2025-04-21",
+    "region": "EU",
+    "product": "Widget D",
+    "demand": 289.95
+  },
+  {
+    "date": "2025-04-21",
+    "region": "US",
+    "product": "Widget A",
+    "demand": 358.71
+  },
+  {
+    "date": "2025-04-21",
+    "region": "US",
+    "product": "Widget B",
+    "demand": 300.94
+  },
+  {
+    "date": "2025-04-21",
+    "region": "US",
+    "product": "Widget C",
+    "demand": 473.07
+  },
+  {
+    "date": "2025-04-21",
+    "region": "US",
+    "product": "Widget D",
+    "demand": 245.9
+  },
+  {
+    "date": "2025-04-21",
+    "region": "APAC",
+    "product": "Widget A",
+    "demand": 440.09
+  },
+  {
+    "date": "2025-04-21",
+    "region": "APAC",
+    "product": "Widget B",
+    "demand": 402.81
+  },
+  {
+    "date": "2025-04-21",
+    "region": "APAC",
+    "product": "Widget C",
+    "demand": 454.48
+  },
+  {
+    "date": "2025-04-21",
+    "region": "APAC",
+    "product": "Widget D",
+    "demand": 438.58
+  },
+  {
+    "date": "2025-04-21",
+    "region": "LATAM",
+    "product": "Widget A",
+    "demand": 299.93
+  },
+  {
+    "date": "2025-04-21",
+    "region": "LATAM",
+    "product": "Widget B",
+    "demand": 455.56
+  },
+  {
+    "date": "2025-04-21",
+    "region": "LATAM",
+    "product": "Widget C",
+    "demand": 194.24
+  },
+  {
+    "date": "2025-04-21",
+    "region": "LATAM",
+    "product": "Widget D",
+    "demand": 214.99
+  },
+  {
+    "date": "2025-04-22",
+    "region": "EU",
+    "product": "Widget A",
+    "demand": 64.72
+  },
+  {
+    "date": "2025-04-22",
+    "region": "EU",
+    "product": "Widget B",
+    "demand": 98.46
+  },
+  {
+    "date": "2025-04-22",
+    "region": "EU",
+    "product": "Widget C",
+    "demand": 317.5
+  },
+  {
+    "date": "2025-04-22",
+    "region": "EU",
+    "product": "Widget D",
+    "demand": 354.3
+  },
+  {
+    "date": "2025-04-22",
+    "region": "US",
+    "product": "Widget A",
+    "demand": 313.66
+  },
+  {
+    "date": "2025-04-22",
+    "region": "US",
+    "product": "Widget B",
+    "demand": 360.06
+  },
+  {
+    "date": "2025-04-22",
+    "region": "US",
+    "product": "Widget C",
+    "demand": 279.75
+  },
+  {
+    "date": "2025-04-22",
+    "region": "US",
+    "product": "Widget D",
+    "demand": 118.49
+  },
+  {
+    "date": "2025-04-22",
+    "region": "APAC",
+    "product": "Widget A",
+    "demand": 308.49
+  },
+  {
+    "date": "2025-04-22",
+    "region": "APAC",
+    "product": "Widget B",
+    "demand": 272.92
+  },
+  {
+    "date": "2025-04-22",
+    "region": "APAC",
+    "product": "Widget C",
+    "demand": 230.51
+  },
+  {
+    "date": "2025-04-22",
+    "region": "APAC",
+    "product": "Widget D",
+    "demand": 321.12
+  },
+  {
+    "date": "2025-04-22",
+    "region": "LATAM",
+    "product": "Widget A",
+    "demand": 206.6
+  },
+  {
+    "date": "2025-04-22",
+    "region": "LATAM",
+    "product": "Widget B",
+    "demand": 161.24
+  },
+  {
+    "date": "2025-04-22",
+    "region": "LATAM",
+    "product": "Widget C",
+    "demand": 332.05
+  },
+  {
+    "date": "2025-04-22",
+    "region": "LATAM",
+    "product": "Widget D",
+    "demand": 251.61
+  }
+]
