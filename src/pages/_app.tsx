@@ -15,6 +15,9 @@ import "@ingka/search/style.scss";
 import "@/styles/styles.scss";
 
 import type { AppProps } from "next/app";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -22,7 +25,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>Demand forecast</title>
       </Head>
-      <Component {...pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <Component {...pageProps} />
+      </QueryClientProvider>
     </>
   );
 }
