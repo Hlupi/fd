@@ -157,3 +157,7 @@
   align-items: center;
   color: $colour-text-and-icon-1;
 }
+
+.rdp-root {
+  --rdp-accent-color: #{$colour-interactive-emphasised-bg-default};
+}

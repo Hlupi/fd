@@ -8,11 +8,12 @@ import "@ingka/list-view/style.scss";
 import "@ingka/pill/style.scss";
 import "@ingka/table/style.scss";
 import "@ingka/text/style.scss";
-import "react-day-picker/style.css";
 import "@ingka/svg-icon/style.scss";
 import "@ingka/search/style.scss";
 import "@ingka/skeleton/style.scss";
 import "@ingka/modal/style.scss";
+
+import "react-day-picker/style.css";
 
 import "@/styles/styles.scss";
 
