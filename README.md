@@ -1,40 +1,65 @@
+# Forecast Dashboard
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+You can see the deployed version [here](https://fd-frontend-991905200096.europe-west4.run.app/)
 
 ## Getting Started
 
-First, run the development server:
+Add [Skapa component library](https://skapa.ikea.net/) npm registry:
+
+```shell
+npm set @ingka:registry https://npm.m2.blue.cdtapps.com
+```
+
+Install npm packages:
 
 ```bash
+npm install
+```
+
+Start the NextJS development server:
+
+```sh
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Testing
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Unit Tests
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+```sh
+npm run test
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+or
 
-## Learn More
+```sh
+npm run test:ui
+```
 
-To learn more about Next.js, take a look at the following resources:
+This project uses
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+- [Vitest](https://vitest.dev/) as a test runner
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) to test components
+- [Axe](https://github.com/chaance/vitest-axe) to check for a11y violations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### End-to-End Tests
 
-## Deploy on Vercel
+```sh
+npm run e2e
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+or
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+```sh
+npm run e2e:dev
+```
+
+This project uses
+
+- [Cypress](https://docs.cypress.io/guides/overview/why-cypress) as the testing tool
+- [Cypress Testing Library](https://testing-library.com/docs/cypress-testing-library/intro/) selectors to query elements
+- [Axe](https://github.com/component-driven/cypress-axe) to check for a11y violations
+- API requests are mocked using cy.intercept() and fixtures
