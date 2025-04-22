@@ -2,28 +2,44 @@
 
 .dashboard {
   &__container {
-    padding: $space-400;
+    padding: $space-100;
+
+    @media (min-width: $breakpoint-m) {
+      padding: $space-200;
+    }
+
+    @media (min-width: $breakpoint-l) {
+      padding: $space-400;
+    }
   }
 
   &__filter-bar {
+    margin-bottom: $space-200;
     display: flex;
     align-items: center;
-    margin-bottom: $space-200;
     gap: $space-100;
+    flex-wrap: wrap;
   }
 
   &__content {
     padding-top: $space-100;
     display: flex;
     gap: $space-150;
+    flex-wrap: wrap;
+
+    @media (min-width: $breakpoint-xl) {
+      flex-wrap: nowrap;
+    }
   }
 
   &__table {
     flex-basis: 40%;
+    flex-grow: 1;
   }
 
   &__charts {
     flex-basis: 60%;
+    flex-grow: 1;
   }
 }
 

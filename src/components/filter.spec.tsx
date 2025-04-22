@@ -1,7 +1,13 @@
 import mockRouter from "next-router-mock";
 import { axe } from "vitest-axe";
 
-import { render, screen, userEvent } from "@/test/utils";
+import {
+  changeInnerWidth,
+  originalInnerWidth,
+  render,
+  screen,
+  userEvent,
+} from "@/test/utils";
 import { Filter } from "./filter";
 
 const renderFilter = () =>
@@ -10,6 +16,14 @@ const renderFilter = () =>
 describe("Filter", () => {
   beforeEach(() => {
     mockRouter.setCurrentUrl("/");
+
+    // Reset width to default
+    changeInnerWidth(originalInnerWidth);
+  });
+
+  afterEach(() => {
+    // Restore original window width
+    changeInnerWidth(originalInnerWidth);
   });
 
   it("should display a filter with correct name ", () => {
@@ -73,5 +87,29 @@ describe("Filter", () => {
   it("should have no axe violations", async () => {
     const { container } = renderFilter();
     expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it("should work on mobile", async () => {
+    changeInnerWidth(375);
+    renderFilter();
+    const button = screen.getByRole("button", { name: /Filter by Filter 1/i });
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+
+    await userEvent.click(button);
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+
+    const options = screen.getAllByRole("checkbox");
+    expect(options.length).toBe(2);
+
+    const option1 = screen.getByRole("checkbox", { name: /option 1/i });
+    await userEvent.click(option1);
+    expect(mockRouter).toMatchObject({
+      asPath: "/?Filter+1=option+1",
+      pathname: "/",
+      query: { "Filter 1": "option 1" },
+    });
+
+    await userEvent.click(button);
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 });

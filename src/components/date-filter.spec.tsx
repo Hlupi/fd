@@ -1,6 +1,13 @@
 import mockRouter from "next-router-mock";
 import { axe } from "vitest-axe";
-import { render, screen, userEvent, within } from "@/test/utils";
+import {
+  changeInnerWidth,
+  originalInnerWidth,
+  render,
+  screen,
+  userEvent,
+  within,
+} from "@/test/utils";
 import { DateFilter, formatToString } from "./date-filter";
 import { format } from "date-fns";
 
@@ -36,6 +43,14 @@ const renderDateFilter = (props = {}) =>
 describe("DateFilter", () => {
   beforeEach(() => {
     mockRouter.setCurrentUrl("/");
+
+    // Reset width to default
+    changeInnerWidth(originalInnerWidth);
+  });
+
+  afterEach(() => {
+    // Restore original window width
+    changeInnerWidth(originalInnerWidth);
   });
 
   it("should render with default label", () => {
@@ -113,5 +128,29 @@ describe("DateFilter", () => {
   it("should have no axe violations", async () => {
     const { container } = renderDateFilter();
     expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it("should work on mobile", async () => {
+    changeInnerWidth(375);
+    renderDateFilter();
+    const button = screen.getByRole("button", { name: /From/i });
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+
+    await userEvent.click(button);
+    const calendar = screen.getByRole("dialog", { name: /From date picker/i });
+    expect(calendar).toBeInTheDocument();
+
+    const dayButton = within(calendar).getByRole("button", {
+      name: `Today, ${formatDate(new Date())}`,
+    });
+    await userEvent.click(dayButton);
+    expect(button).toHaveTextContent(format(new Date(), "dd MMM"));
+    const selectedDateString = formatToString(new Date());
+
+    expect(mockRouter).toMatchObject({
+      asPath: `/?from=${selectedDateString}`,
+      pathname: "/",
+      query: { from: `${selectedDateString}` },
+    });
   });
 });

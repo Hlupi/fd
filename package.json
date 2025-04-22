@@ -19,6 +19,7 @@
     "@ingka/focus": "6.0.4",
     "@ingka/grid": "7.0.6",
     "@ingka/list-view": "0.9.15",
+    "@ingka/modal": "10.0.2",
     "@ingka/pill": "10.0.2",
     "@ingka/search": "9.2.2",
     "@ingka/skeleton": "4.1.1",
