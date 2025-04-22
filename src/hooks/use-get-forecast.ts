@@ -30,7 +30,7 @@ interface ForecastError {
   userMessage?: string;
 }
 
-interface UseForecastReturn {
+interface UseGetForecastReturn {
   data: ForecastData[] | null;
   isLoading: boolean;
   error: ForecastError | null;
@@ -85,7 +85,7 @@ export const fetchForecast = async (
   }
 };
 
-export const useForecast = (): UseForecastReturn => {
+export const useGetForecast = (): UseGetForecastReturn => {
   const router = useRouter();
 
   const region = Array.isArray(router.query.region)

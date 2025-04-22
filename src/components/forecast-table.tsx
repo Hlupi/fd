@@ -12,18 +12,14 @@ import {
   getFilteredRowModel,
 } from "@tanstack/react-table";
 import Table, { TableBody, TableHeader } from "@ingka/table";
-import { Pagination } from "./pagination";
 import Search from "@ingka/search";
 import Button from "@ingka/button";
 import arrowDownIcon from "@ingka/ssr-icon/paths/arrow-down";
 import SSRIcon from "@ingka/ssr-icon";
+import Skeleton from "@ingka/skeleton";
 
-type ForecastData = {
-  date: string;
-  region: string;
-  product: string;
-  demand: number;
-};
+import { Pagination } from "./pagination";
+import { ForecastData } from "@/hooks/use-get-forecast";
 
 const columnHelper = createColumnHelper<ForecastData>();
 
@@ -60,7 +56,7 @@ export function ForecastTable({
   data,
   className,
 }: {
-  data: ForecastData[];
+  data: ForecastData[] | null;
   className?: string;
 }) {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -68,7 +64,7 @@ export function ForecastTable({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
-    data,
+    data: data ?? [],
     columns,
     state: {
       sorting,
@@ -98,65 +94,116 @@ export function ForecastTable({
         clearBtnText="Clear search"
         submitBtnText="Search"
         ariaLabel="Search through the forecast data"
+        disabled={!data || !data.length}
       />
-
-      <Table fullWidth>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  <Button
-                    type="plain"
-                    size="small"
-                    aria-label={`Sort by ${String(header.column.columnDef.header)} ${
-                      header.column.getIsSorted() === "asc"
-                        ? "ascending"
-                        : "descending"
-                    }`}
-                    onClick={header.column.getToggleSortingHandler()}
-                    className="table__header-button"
-                  >
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-                    <SSRIcon
-                      paths={arrowDownIcon}
-                      className={`${sortingIconClassName} ${header.column.getIsSorted() ? `${sortingIconClassName}--active` : ""} ${header.column.getIsSorted() === "desc" ? `${sortingIconClassName}--rotated` : ""}`}
-                    />
-                  </Button>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows.length ? (
-            table.getRowModel().rows.map((row) => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
+      <section aria-busy={data ? "false" : "true"} aria-live="polite">
+        {data ? (
+          <>
+            <Table fullWidth>
+              <TableHeader>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <th key={header.id}>
+                        <Button
+                          type="plain"
+                          size="small"
+                          aria-label={`Sort by ${String(header.column.columnDef.header)} ${
+                            header.column.getIsSorted() === "asc"
+                              ? "ascending"
+                              : "descending"
+                          }`}
+                          onClick={header.column.getToggleSortingHandler()}
+                          className="table__header-button"
+                        >
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                          <SSRIcon
+                            paths={arrowDownIcon}
+                            className={`${sortingIconClassName} ${header.column.getIsSorted() ? `${sortingIconClassName}--active` : ""} ${header.column.getIsSorted() === "desc" ? `${sortingIconClassName}--rotated` : ""}`}
+                          />
+                        </Button>
+                      </th>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={columns.length}>No results found</td>
-            </tr>
-          )}
-        </TableBody>
-      </Table>
+              </TableHeader>
+              <TableBody>
+                {table.getRowModel().rows.length ? (
+                  table.getRowModel().rows.map((row) => (
+                    <tr key={row.id}>
+                      {row.getVisibleCells().map((cell) => (
+                        <td key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={columns.length}>No results found</td>
+                  </tr>
+                )}
+              </TableBody>
+            </Table>
 
-      <Pagination
-        totalPages={table.getPageCount()}
-        currentPage={table.getState().pagination.pageIndex}
-        onClick={table.setPageIndex}
-        hasPrevPage={table.getCanPreviousPage()}
-        hasNextPage={table.getCanNextPage()}
-      />
+            <Pagination
+              totalPages={table.getPageCount()}
+              currentPage={table.getState().pagination.pageIndex}
+              onClick={table.setPageIndex}
+              hasPrevPage={table.getCanPreviousPage()}
+              hasNextPage={table.getCanNextPage()}
+            />
+          </>
+        ) : (
+          <ForecastTableLoading />
+        )}
+      </section>
     </div>
+  );
+}
+
+function ForecastTableLoading() {
+  const headers = ["Date", "Region", "Product", "Demand"];
+  return (
+    <Table fullWidth>
+      <TableHeader>
+        <tr>
+          {headers.map((header) => (
+            <th key={header}>
+              <Button
+                type="plain"
+                size="small"
+                className="table__header-button--disabled"
+                text={header}
+              />
+            </th>
+          ))}
+        </tr>
+      </TableHeader>
+      <TableBody>
+        {Array.from({ length: 10 }).map((_, index) => (
+          <tr key={index}>
+            <td>
+              <Skeleton width="124px" />
+            </td>
+            <td>
+              <Skeleton width="98px" />
+            </td>
+            <td>
+              <Skeleton width="106px" />
+            </td>
+            <td>
+              <Skeleton width="110px" />
+            </td>
+          </tr>
+        ))}
+      </TableBody>
+    </Table>
   );
 }

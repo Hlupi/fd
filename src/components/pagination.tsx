@@ -18,6 +18,8 @@ export function Pagination({
   hasPrevPage,
   hasNextPage,
 }: PaginationProps) {
+  if (!totalPages) return null;
+
   const renderPageNumbers = () => {
     const visiblePages = 5;
 
@@ -40,7 +42,7 @@ export function Pagination({
           size="small"
           onClick={() => onClick(i)}
           text={pageNumber.toString()}
-          className={i !== currentPage ? "font-normal" : ""}
+          className={`pagination__page-number ${i === currentPage ? "pagination__page-number--active" : ""}`}
           aria-label={
             i === currentPage
               ? `Current page ${pageNumber}`
@@ -52,6 +54,14 @@ export function Pagination({
 
     return pages;
   };
+
+  const pageNumbers = (
+    <div className="pagination__page-numbers">{renderPageNumbers()}</div>
+  );
+
+  if (totalPages === 1) {
+    return <div className="pagination__controls">{pageNumbers}</div>;
+  }
 
   return (
     <>
@@ -65,7 +75,7 @@ export function Pagination({
           disabled={!hasPrevPage}
           aria-label="First page"
         />
-        <div className="pagination__page-numbers">{renderPageNumbers()}</div>
+        {pageNumbers}
 
         <Button
           type="primary"
@@ -77,11 +87,9 @@ export function Pagination({
           aria-label="Last page"
         />
       </div>
-      {totalPages > 1 && (
-        <Text tagName="p" className="pagination__info">
-          Showing page {currentPage + 1} of {totalPages}
-        </Text>
-      )}
+      <Text tagName="p" className="pagination__info">
+        Showing page {currentPage + 1} of {totalPages}
+      </Text>
     </>
   );
 }

@@ -1,13 +1,16 @@
 import Text from "@ingka/text";
+import { ErrorBoundary } from "react-error-boundary";
 
-import { Product, Region, useForecast } from "@/hooks/use-get-forecast";
+import { Product, Region, useGetForecast } from "@/hooks/use-get-forecast";
 import { Filter } from "./filter";
 import { ForecastTable } from "./forecast-table";
 import { DateRangeFilter } from "./date-range-filter";
 import { DemandOverTimeChart } from "./charts";
+import { ErrorMessage } from "./error-message";
+import { Fallback } from "./fallback";
 
 export function Dashboard() {
-  const { data, isLoading, error, refetch } = useForecast();
+  const { data, error, refetch } = useGetForecast();
   return (
     <div className="dashboard__container">
       <header>
@@ -20,20 +23,17 @@ export function Dashboard() {
         <Filter name="product" values={Object.values(Product)} />
         <DateRangeFilter />
       </div>
-
       <main className="dashboard__content">
-        {isLoading ? (
-          <div>Loading forecast data...</div>
-        ) : error ? (
-          <div>
-            Error: {error.message} <button onClick={refetch}>Try Again</button>
-          </div>
-        ) : !data ? (
-          <div>No forecast data available.</div>
+        {error ? (
+          <ErrorMessage message={error.message} onClick={refetch} />
         ) : (
           <>
-            <ForecastTable data={data} className="dashboard__table" />
-            <DemandOverTimeChart data={data} className="dashboard__charts" />
+            <ErrorBoundary fallbackRender={Fallback}>
+              <ForecastTable data={data} className="dashboard__table" />
+            </ErrorBoundary>
+            <ErrorBoundary fallbackRender={Fallback}>
+              <DemandOverTimeChart data={data} className="dashboard__charts" />
+            </ErrorBoundary>
           </>
         )}
       </main>

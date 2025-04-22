@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { ApexOptions } from "apexcharts";
 import { ForecastData, Product, Region } from "@/hooks/use-get-forecast";
 import { format } from "date-fns";
+import Skeleton from "@ingka/skeleton";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -10,13 +11,10 @@ export function DemandOverTimeChart({
   data,
   className,
 }: {
-  data: ForecastData[];
+  data: ForecastData[] | null;
   className?: string;
 }) {
-  if (!data || data.length === 0) {
-    return <div>No data available for the chart.</div>;
-  }
-  const dates = [...new Set(data.map((item) => item.date))].sort();
+  const dates = [...new Set(data?.map((item) => item.date))].sort();
   const regions = Object.values(Region);
   const products = Object.values(Product);
 
@@ -24,7 +22,7 @@ export function DemandOverTimeChart({
     products.map((product) => ({
       name: `${product} - ${region}`,
       data: dates.map((date) => {
-        const entry = data.find(
+        const entry = data?.find(
           (d) => d.date === date && d.region === region && d.product === product
         );
         return entry ? Math.round(entry.demand) : 0;
@@ -52,14 +50,23 @@ export function DemandOverTimeChart({
   };
 
   return (
-    <Chart
-      options={options}
-      series={series}
-      type="line"
-      height={400}
+    <section
+      aria-busy={data?.length ? "false" : "true"}
+      aria-live="polite"
       className={className}
-      aria-label="Demand Over Time Chart"
-      role="region"
-    />
+    >
+      {!data?.length ? (
+        <Skeleton height="400px" />
+      ) : (
+        <Chart
+          options={options}
+          series={series}
+          type="line"
+          height={400}
+          aria-label="Demand Over Time Chart"
+          role="region"
+        />
+      )}
+    </section>
   );
 }

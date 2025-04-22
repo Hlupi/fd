@@ -68,6 +68,10 @@
       }
     }
 
+    &--disabled {
+      pointer-events: none;
+    }
+
     &__sorting-icon {
       color: transparent;
 
@@ -103,11 +107,22 @@
   }
 
   &__page-numbers {
+    min-width: 109px;
     display: flex;
     gap: $space-50;
+    justify-content: center;
 
     & > button:hover {
       color: $colour-interactive-secondary-bg-hover;
+    }
+  }
+
+  &__page-number {
+    font-weight: normal;
+
+    &--active {
+      font-weight: bold;
+      pointer-events: none;
     }
   }
 
@@ -117,6 +132,12 @@
   }
 }
 
-.font-normal {
-  font-weight: normal;
+.error-message {
+  margin: 0 auto;
+  padding: $space-200;
+  display: flex;
+  flex-direction: column;
+  gap: $space-100;
+  align-items: center;
+  color: $colour-text-and-icon-1;
 }
