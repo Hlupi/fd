@@ -25,5 +25,5 @@
     "vitest.config.mts",
     "vitest/globals"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "cypress"]
 }

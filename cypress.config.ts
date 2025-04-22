@@ -8,6 +8,6 @@ export default defineConfig({
       // eslint-disable-next-line @typescript-eslint/no-require-imports
       return require("./cypress/plugins/index.ts").default(on, config);
     },
-    baseUrl: `http://localhost:${process.env.PORT || "3001"}/`,
+    baseUrl: `http://localhost:${process.env.PORT || "3000"}/`,
   },
 });

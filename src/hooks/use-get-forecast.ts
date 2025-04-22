@@ -40,7 +40,7 @@ interface UseGetForecastReturn {
 export const fetchForecast = async (
   params: Record<string, string>
 ): Promise<ForecastData[]> => {
-  const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}forecast/`);
+  const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/forecast/`);
   for (const [key, val] of Object.entries(params)) {
     if (val) {
       url.searchParams.append(key, val);

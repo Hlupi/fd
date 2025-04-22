@@ -12,7 +12,6 @@ import "@ingka/svg-icon/style.scss";
 import "@ingka/search/style.scss";
 import "@ingka/skeleton/style.scss";
 import "@ingka/modal/style.scss";
-
 import "react-day-picker/style.css";
 
 import "@/styles/styles.scss";
